@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://e822lpgopqgu"]
+
+[ext_resource type="Script" path="res://Scripts/credits.gd" id="1_1v4fp"]
+[ext_resource type="Texture2D" uid="uid://kxm8bnijip74" path="res://Assets/background/background_credits.png" id="1_otrhp"]
+[ext_resource type="Theme" uid="uid://dfi4chfjbpoa2" path="res://Prefabs/default_theme.tres" id="2_a4vxc"]
+[ext_resource type="AudioStream" uid="uid://dwdjwsbn8vlti" path="res://Assets/soundtrack/bit-beats-3-168873.mp3" id="4_osmwv"]
+[ext_resource type="Script" path="res://Scripts/soundtrack_credits.gd" id="5_a4qkw"]
+[ext_resource type="Texture2D" uid="uid://b7ray4me3kpg" path="res://Assets/texto/credtis.png" id="6_a6rvm"]
+
+[sub_resource type="Theme" id="Theme_664sk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43b1f"]
+
+[node name="credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1v4fp")
+
+[node name="background_credits" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(240, 427)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_otrhp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(240, 427)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="back_btn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme = ExtResource("2_a4vxc")
+text = "BACK"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_664sk")
+theme_override_styles/separator = SubResource("StyleBoxEmpty_43b1f")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_osmwv")
+autoplay = true
+script = ExtResource("5_a4qkw")
+
+[node name="creditos" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 96.0
+offset_top = 157.0
+offset_right = 204.0
+offset_bottom = 219.0
+texture = ExtResource("6_a6rvm")
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/back_btn" to="." method="_on_back_btn_pressed"]
+[connection signal="toggled" from="MarginContainer/HBoxContainer/VBoxContainer/back_btn" to="." method="_on_back_btn_toggled"]
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]
